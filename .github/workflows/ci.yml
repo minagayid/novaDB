@@ -12,9 +12,11 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
+      - name: Install package and development test dependencies
+        run: python -m pip install -e ".[dev]"
       - name: Compile package and tests
         run: python -m compileall -q novadb tests
-      - name: Run dependency-free regression suite
+      - name: Run regression suite
         env:
           PYTHONPATH: .
         run: python -m tests.test_runner
